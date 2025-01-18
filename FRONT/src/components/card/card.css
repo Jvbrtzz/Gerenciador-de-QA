@@ -1,0 +1,131 @@
+.kanban-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .card-input {
+    width: 100%;
+    max-width: 500px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .card-input input,
+  .card-input textarea,
+  .card-input select,
+  .card-input button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  .card-input button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .card-input button:hover {
+    background-color: #0056b3;
+  }
+  
+  .columns {
+    display: flex;
+    gap: 150px;
+    width: 100%;
+    overflow-x: auto;
+    padding: 10px 0;
+  }
+  
+  .column {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    flex: 1;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .column h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    color: #333;
+  }
+  
+  .card {
+    background: #e3f2fd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
+    color: #007bff;
+  }
+  
+  .card p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #555;
+  }
+  
+   
+  button {
+    background: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-top: 10px;
+    align-self: flex-end;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background: #e60000;
+  }
+    
+  .button-change {
+    background: green;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 200px;    
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-top: 10px;
+    align-self: flex-end;
+    transition: background-color 0.3s ease;
+  }
+  .button-change:hover {
+    background: lightgreen;
+  }
