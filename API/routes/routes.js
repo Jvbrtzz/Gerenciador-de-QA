@@ -1,0 +1,16 @@
+const express = require('express');
+const userController = require('../controller/controller');
+const cardController = require('../controller/controllerCard');
+const router = express.Router();
+
+router.get('/user', userController.getUsers)
+router.get('/user/:id', userController.getUserById)
+router.post('/registerUser', userController.createUser)
+router.post('/userLogin', userController.userLogin)
+router.get('/getUserCard/:id', cardController.getUserCard)
+router.post('/createCards', cardController.createCard)
+router.delete('/deleteCarts/:cardId', cardController.deleteCard)
+router.put('/updateCardStatus/:cardId', cardController.updateCardStatus)
+router.put('/updateCard/:cardId', cardController.updateCard)
+
+module.exports = router;
