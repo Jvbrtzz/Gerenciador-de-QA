@@ -1,2 +1,2 @@
 # Gerenciador de QA
- Projeto para o monetoramentos de tarefas em QA
+ Projeto para o monitoramento de tarefas em QA
