@@ -3,18 +3,18 @@ import './index.css';
 import Navbar from '../../components/navbar';
 import Card from '../../components/card/card';
 import decodeToken from '../../utils/decodeAccessToken';
-
-const navigateTo = () => {
-  window.location.href = '/login';
-}
-
-const token = decodeToken()
-
-if(!token){
-  navigateTo()
-}
+import { navigateToLogin } from '../../utils/redirectHome';
 
 const MainPage = () => {
+
+  const token = decodeToken()   
+
+  React.useEffect(()=>{
+    if(!token){
+      navigateToLogin()
+    }
+  }, [token])
+
   return (
     <>
       <Navbar />    

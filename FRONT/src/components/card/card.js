@@ -5,7 +5,7 @@ import decodeToken from '../../utils/decodeAccessToken';
 import Modal from '../modal/modal';
 
 
-const token = decodeToken().user_id;
+const token = decodeToken()?.user_id;
 
 async function fetchUserCards(id) {
   try {

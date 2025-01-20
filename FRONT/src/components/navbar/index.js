@@ -1,12 +1,23 @@
 import React from 'react';
 import './index.css';
 import decodeToken from '../../utils/decodeAccessToken';
+import deleteToken from '../../utils/logout';
 
 const Navbar = () => {
   const token = decodeToken();
   const isAuthenticated = !!token;
 
-  return (
+  const [isMenuActive, setIsMenuActive] = React.useState(false);
+
+  function handleMouseOver() {
+    setIsMenuActive(true);
+  }
+
+  function handleMouseLeave() {
+    setIsMenuActive(false);
+  }
+
+return (
     <nav className="navbar">
       <div className="navbar-logo">
         <a href="/">Logo</a>
@@ -19,7 +30,17 @@ const Navbar = () => {
       </ul>
       <div className="navbar-menu">
         {isAuthenticated ? (
-          <span className="welcome-text">Bem-vindo, {token.username}!</span>
+          <div
+            className={`menu ${isMenuActive ? 'menu-active' : ''}`}
+            onMouseOver={handleMouseOver}
+            onMouseLeave={handleMouseLeave}
+          >
+            Menu
+            <div className="menu-content">
+              <span className="welcome-text">Bem-vindo,<br /> {token.username}!</span>
+              <button className="logout-btn" onClick={deleteToken}>Logout</button>
+            </div>
+          </div>
         ) : (
           <a href="/login" className="login-btn">Login</a>
         )}
