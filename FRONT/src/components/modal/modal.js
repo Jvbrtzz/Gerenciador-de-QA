@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './modal.css';
 import { updateCard } from '../../api/card';
+import CommentSection from '../comment/commentBuilder';
 
 export default function Modal({ isOpen, setModalOpen, columns = [], cardId }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState('')
-
+    const [comentary, setComentary] = useState('');
     
     useEffect(() => {
       if (cardId) {
@@ -37,7 +38,7 @@ export default function Modal({ isOpen, setModalOpen, columns = [], cardId }) {
       }
   
       updateCard(cardId, title, description, status);
-      setModalOpen(false); // Fecha o modal após salvar
+      setModalOpen(false); 
     };
   
     return isOpen ? (
@@ -79,8 +80,15 @@ export default function Modal({ isOpen, setModalOpen, columns = [], cardId }) {
               <option value="">Nenhuma coluna disponível</option>
             )}
           </select>
-  
-          <div className="modal-actions">
+          <label htmlFor="comentary">Escreva um comentário:</label>
+          <textarea
+            id="comentario"
+            value={comentary}
+            onChange={(e) => setComentary(e.target.value)}
+          ></textarea>
+          <p>Comentários</p>
+          <CommentSection cardId={cardId} />          
+            <div className="modal-actions">
             <button onClick={handleSave}>Salvar</button>
             <button onClick={() => setModalOpen(false)}>Fechar</button>
           </div>

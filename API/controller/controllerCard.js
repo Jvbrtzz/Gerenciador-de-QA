@@ -14,6 +14,8 @@ function getUserCard(req, res) {
     });
 }
 
+
+
 function createCard(req, res) {
     const { user_id, title, description, status } = req.body;
     console.log(user_id, title, description, status);
@@ -118,10 +120,60 @@ function updateCard(req, res) {
     });
 }
 
+function getCommentsByCard(req, res) {
+    const { cardId } = req.params;
+
+    connection.query(`
+        SELECT 
+            cm.comment,
+            cm.created_at AS comment_date,
+            u.nome AS commenter_name
+        FROM 
+            comments cm
+        JOIN 
+            user u ON cm.user_id = u.id
+        WHERE 
+            cm.card_id = ?; -- Filtra os comentários de um card específico`, [cardId], (err, results) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            res.status(500).send('Error executing query');
+            return;
+        }
+        console.log(results)
+        res.send(results);
+    });
+}
+
+function postCommentsByCard(req, res) {
+    const { cardId } = req.params;
+    const { user_id, comment } = req.body;
+
+    connection.query(`INSERT INTO comments (card_id, user_id, comment, created_at) VALUES (?, ?, ?, NOW()) `, [cardId, user_id, comment], (err, results) => {
+        if (err) {
+            console.error('Error inserting comment:', err);
+            res.status(500).send('Erro ao inserir o comentário.');
+            return;
+        }
+        
+        res.status(201).json({
+            success: true,
+            message: 'Comentário adicionado com sucesso!',
+            commentId: results.insertId 
+        });
+    });
+}
+
+module.exports = {
+    postCommentsByCard
+};
+
+
 module.exports = {
     getUserCard,
     createCard,
     deleteCard,
     updateCard,
-    updateCardStatus
+    updateCardStatus,
+    getCommentsByCard,
+    postCommentsByCard
 };

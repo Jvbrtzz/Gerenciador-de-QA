@@ -7,10 +7,15 @@ router.get('/user', userController.getUsers)
 router.get('/user/:id', userController.getUserById)
 router.post('/registerUser', userController.createUser)
 router.post('/userLogin', userController.userLogin)
+
 router.get('/getUserCard/:id', cardController.getUserCard)
 router.post('/createCards', cardController.createCard)
 router.delete('/deleteCarts/:cardId', cardController.deleteCard)
 router.put('/updateCardStatus/:cardId', cardController.updateCardStatus)
 router.put('/updateCard/:cardId', cardController.updateCard)
+
+router.get('/comment/:cardId', cardController.getCommentsByCard)
+router.post('/sendComment/:cardId', cardController.postCommentsByCard)
+
 
 module.exports = router;

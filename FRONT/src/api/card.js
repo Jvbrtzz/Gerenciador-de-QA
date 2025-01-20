@@ -76,11 +76,49 @@ function updateCardStatus(cardId, status){
     });
 }
 
-
-
 function deleteCard(cardId) {    
     return http.delete(`/deleteCarts/${cardId}`);
   }
+
+function getCommentsByCard(cardId) {
+    return http.get(`comment/${cardId}`)
+        .then(response => {
+            const data = response.data;
+            if (data && data.length > 0) {
+                return data; 
+            } else {
+                toast.error('Nenhum card encontrado.');
+                return []; 
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            toast.error('Erro ao buscar dados.');
+            throw error;
+        });
+}  
+
+
+function postCommentsByCard(cardId, userId, comment) {
+    return http.post(`sendComment/${cardId}`,{
+            userId,
+            comment
+        })
+        .then(response => {
+            const data = response.data;
+            if (data && data.length > 0) {
+                return data; 
+            } else {
+                toast.error('Nenhum card encontrado.');
+                return []; 
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            toast.error('Erro ao buscar dados.');
+            throw error;
+        });
+}  
   
   
 export {
@@ -88,5 +126,7 @@ export {
     createCard,
     deleteCard,
     updateCard,
-    updateCardStatus
+    updateCardStatus,
+    getCommentsByCard,
+    postCommentsByCard
 };
