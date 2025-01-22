@@ -16,6 +16,7 @@ router.put('/updateCard/:cardId', cardController.updateCard)
 
 router.get('/comment/:cardId', cardController.getCommentsByCard)
 router.post('/sendComment/:cardId', cardController.postCommentsByCard)
+router.put('/updateComment/:commentId', cardController.updateComment)
 
 
 module.exports = router;

@@ -125,7 +125,10 @@ function getCommentsByCard(req, res) {
 
     connection.query(`
         SELECT 
+            cm.id,
             cm.comment,
+            cm.updated_at AS coment_update,
+            cm.edited AS edited,
             cm.created_at AS comment_date,
             u.nome AS commenter_name
         FROM 
@@ -162,6 +165,33 @@ function postCommentsByCard(req, res) {
     });
 }
 
+function updateComment(req, res) {
+    const { commentId } = req.params;
+    const { comment } = req.body;
+
+    if (!comment || comment.trim() === "") {
+        return res.status(400).send("O campo 'comment' é obrigatório.");
+    }
+
+
+    connection.query(`UPDATE comments SET comment = ?, updated_at = NOW(), edited = TRUE WHERE id = ?`, [comment, commentId], (err, results) => {
+        if (err) {
+            console.error('Error updating comment:', err);
+            res.status(500).send('Erro ao atualizar o comentário.');
+            return;
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).send('Comentário não encontrado.');
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Comentário atualizado com sucesso!'
+        });
+    });
+}
+
 module.exports = {
     getUserCard,
     createCard,
@@ -169,5 +199,6 @@ module.exports = {
     updateCard,
     updateCardStatus,
     getCommentsByCard,
-    postCommentsByCard
+    postCommentsByCard,
+    updateComment
 };

@@ -11,7 +11,13 @@
     margin-left: 700px;
     
 }
-
+.edited-tag {
+    font-size: 12px;
+    color: gray;
+    margin-left: 5px;
+    font-style: italic;
+  }
+  
 .descricao-video {
     background-color: #f9f9f9;
     display: flex;

@@ -119,6 +119,26 @@ function postCommentsByCard(cardId, user_id, comment) {
             throw error;
         });
 }  
+
+function updateComment(commentId, comment) {
+    return http.put(`updateComment/${commentId}`,{
+            comment
+        })
+        .then(response => {
+            const data = response.data;
+            if (data && data.length > 0) {
+                return data; 
+            } else {
+                toast.error('Nenhum comentário encontrado.');
+                return []; 
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            toast.error('Erro ao buscar dados.');
+            throw error;
+        });
+}  
   
   
 export {
@@ -128,5 +148,6 @@ export {
     updateCard,
     updateCardStatus,
     getCommentsByCard,
-    postCommentsByCard
+    postCommentsByCard,
+    updateComment
 };
