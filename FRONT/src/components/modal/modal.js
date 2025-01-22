@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './modal.css';
-import { updateCard } from '../../api/card';
+import '../comment/comment.css'
+import { postCommentsByCard, updateCard } from '../../api/card';
 import CommentSection from '../comment/commentBuilder';
+import toast from 'react-hot-toast';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 
-export default function Modal({ isOpen, setModalOpen, columns = [], cardId }) {
+
+export default function Modal({ isOpen, setModalOpen, columns = [], cardId, userId, userName }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState('')
@@ -30,7 +34,6 @@ export default function Modal({ isOpen, setModalOpen, columns = [], cardId }) {
       return null;
     };
   
-    // Função para salvar as alterações e atualizar o card
     const handleSave = () => {
       if (!title || !description || !status) {
         console.error('Todos os campos precisam ser preenchidos');
@@ -40,7 +43,28 @@ export default function Modal({ isOpen, setModalOpen, columns = [], cardId }) {
       updateCard(cardId, title, description, status);
       setModalOpen(false); 
     };
-  
+    const handleSaveComment = (cardId, userId, comment, userName) => {
+      if (!comment) {
+        toast.error('Comentário vazio');
+        return;
+      }
+    
+      const commentSection = document.querySelector('.comment-section');
+      const commentDiv = document.createElement('div');
+      commentDiv.className = 'descricao-video';
+    
+      const commentHTML = `
+        <h4>${userName}</h4>
+        <p>${comment}</p>
+        <p>${new Date().toLocaleString()}</p>
+      `;
+
+      //postCommentsByCard(cardId, userId, comment)
+      commentDiv.innerHTML = commentHTML;
+      commentSection.appendChild(commentDiv);
+    };
+    
+
     return isOpen ? (
       <div className="modal-background">
         <div className="modal">
@@ -86,8 +110,11 @@ export default function Modal({ isOpen, setModalOpen, columns = [], cardId }) {
             value={comentary}
             onChange={(e) => setComentary(e.target.value)}
           ></textarea>
+          <button onClick={() => handleSaveComment(cardId, userId, comentary, userName)}>Postar comentario</button>
           <p>Comentários</p>
-          <CommentSection cardId={cardId} />          
+          <div className={`comment-section`}>                  
+          </div>      
+          <CommentSection cardId={cardId} />           
             <div className="modal-actions">
             <button onClick={handleSave}>Salvar</button>
             <button onClick={() => setModalOpen(false)}>Fechar</button>

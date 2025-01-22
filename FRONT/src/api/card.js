@@ -99,9 +99,9 @@ function getCommentsByCard(cardId) {
 }  
 
 
-function postCommentsByCard(cardId, userId, comment) {
+function postCommentsByCard(cardId, user_id, comment) {
     return http.post(`sendComment/${cardId}`,{
-            userId,
+            user_id,
             comment
         })
         .then(response => {

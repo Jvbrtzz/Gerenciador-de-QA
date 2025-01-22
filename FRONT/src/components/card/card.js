@@ -6,6 +6,7 @@ import Modal from '../modal/modal';
 
 
 const token = decodeToken()?.user_id;
+const tokenName = decodeToken()?.username;
 
 async function fetchUserCards(id) {
   try {
@@ -248,6 +249,8 @@ const Card = () => {
         setModalOpen={closeModal}
         columns={columns}
         cardId={selectedCardId}
+        userId={token}
+        userName={tokenName}
       />
     </div>
   );

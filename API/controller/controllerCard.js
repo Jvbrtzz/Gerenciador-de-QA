@@ -139,7 +139,6 @@ function getCommentsByCard(req, res) {
             res.status(500).send('Error executing query');
             return;
         }
-        console.log(results)
         res.send(results);
     });
 }
@@ -147,7 +146,7 @@ function getCommentsByCard(req, res) {
 function postCommentsByCard(req, res) {
     const { cardId } = req.params;
     const { user_id, comment } = req.body;
-
+    
     connection.query(`INSERT INTO comments (card_id, user_id, comment, created_at) VALUES (?, ?, ?, NOW()) `, [cardId, user_id, comment], (err, results) => {
         if (err) {
             console.error('Error inserting comment:', err);
@@ -162,11 +161,6 @@ function postCommentsByCard(req, res) {
         });
     });
 }
-
-module.exports = {
-    postCommentsByCard
-};
-
 
 module.exports = {
     getUserCard,
