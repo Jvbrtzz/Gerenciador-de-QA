@@ -96,7 +96,7 @@
   }
   
    
-  button {
+  .button-card {
     background: #ff4d4d;
     color: #fff;
     border: none;
@@ -109,7 +109,7 @@
     transition: background-color 0.3s ease;
   }
   
-  button:hover {
+  .button-card:hover {
     background: #e60000;
   }
     

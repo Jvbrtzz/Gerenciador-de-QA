@@ -4,7 +4,6 @@ import '../comment/comment.css'
 import { postCommentsByCard, updateCard } from '../../api/card';
 import CommentSection from '../comment/commentBuilder';
 import toast from 'react-hot-toast';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 
 export default function Modal({ isOpen, setModalOpen, columns = [], cardId, userId, userName }) {
@@ -59,7 +58,7 @@ export default function Modal({ isOpen, setModalOpen, columns = [], cardId, user
         <p>${new Date().toLocaleString()}</p>
       `;
 
-      //postCommentsByCard(cardId, userId, comment)
+      postCommentsByCard(cardId, userId, comment)
       commentDiv.innerHTML = commentHTML;
       commentSection.appendChild(commentDiv);
     };

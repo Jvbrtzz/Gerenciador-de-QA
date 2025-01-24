@@ -20,8 +20,8 @@ export default function EditModal({ isOpen, commentId, existingComment, setModal
   };
 
   return isOpen ? (
-    <div className="modal-background">
-      <div className="modal">
+    <div className="edit-modal-background">
+      <div className="edit-modal">
         <label htmlFor="comentary">Escreva um comentário:</label>
         <textarea
           id="comentario"

@@ -217,7 +217,7 @@ const Card = () => {
             </option>
           ))}
         </select>
-        <button onClick={addCard}>Adicionar Card</button>
+        <button className='button-card' onClick={addCard}>Adicionar Card</button>
       </div>
       <div className="columns">
         {columns.map((column) => (
@@ -232,7 +232,7 @@ const Card = () => {
               >
                 <h4>{card.title}</h4>
                 <p>{card.description}</p>
-                <button onClick={() => deleteCard(card.id)}>Excluir</button>
+                <button className='button-card' onClick={() => deleteCard(card.id)}>Excluir</button>
                 <button
                   className="button-change"
                   onClick={() => handleEditClick(card.id)}

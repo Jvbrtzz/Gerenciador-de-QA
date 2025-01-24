@@ -1,0 +1,16 @@
+.erro-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.erro-title {
+    color: darkblue;
+    margin-bottom: 20px; 
+}
+
+.erro-button {
+    margin-top: 10px; 
+}
