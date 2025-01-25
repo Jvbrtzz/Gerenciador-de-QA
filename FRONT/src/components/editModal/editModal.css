@@ -23,7 +23,7 @@
     max-height: calc(100vh - 210px);
     overflow-y: auto;
   }
-  
+
   .modal h2 {
     text-align: center;
   }
@@ -55,7 +55,7 @@
     margin-top: 20px;
   }
   
-  .modal-actions button {
+  .edit-button {
     padding: 10px 20px;
     background-color: #4CAF50;
     border: none;
@@ -64,11 +64,11 @@
     border-radius: 5px;
   }
   
-  .modal-actions button:hover {
+  .edit-button:hover {
     background-color: #45a049;
   }
   
-  .modal button {
+  .edit-button {
     padding: 8px 15px;
     background-color: #f44336;
     border: none;
@@ -77,7 +77,7 @@
     border-radius: 5px;
   }
   
-  .modal button:hover {
+  .edit-button:hover {
     background-color: #e53935;
   }
 

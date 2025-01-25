@@ -10,6 +10,7 @@ import MainPage from './pages/mainPage'
 import { Suspense } from "react";
 import LoginPage from './pages/loginPage';
 import Erro404 from './pages/pageError/404';
+import GetUsers from './pages/users/users';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage></LoginPage>,
+  },
+  {
+    path: "/users",
+    element: <GetUsers></GetUsers>,
   },
   {
     path: "*",

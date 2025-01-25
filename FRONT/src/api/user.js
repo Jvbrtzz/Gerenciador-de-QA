@@ -2,6 +2,21 @@ import http from "./api";
 import toast from "react-hot-toast";
 import { navigateToHome } from "../utils/redirectHome";
 
+function getAllusers(){
+    return http.get('/users').then(response => {
+        const data = response.data;
+        if (data && data.length > 0) {            
+            return data; 
+        } else {
+            toast.error('Credenciais inválidas.');
+        }
+    })
+    .catch(error => {
+        toast.error('Erro ao fazer login.');
+        console.error('Error:', error);
+    });
+}
+
 function createUser(nome, email, senha){
     http.post('/registerUser', {
         nome,
@@ -43,7 +58,62 @@ const userLogin = (nome, senha) => {
         });
 }
 
+function getAllShareUsers(cardId){
+    return http.get(`/sharedUsers/${cardId}`).then(response => {
+        const data = response.data;
+        if (data && data.length > 0) {            
+            return data; 
+        } else {
+            toast.error('Credenciais inválidas.');
+        }
+    })
+    .catch(error => {
+        toast.error('Erro ao fazer login.');
+        console.error('Error:', error);
+    });
+}
+
+function getAllShareCards(userId){
+    return http.get(`/sharedCards/${userId}`).then(response => {
+        const data = response.data;
+        if (data && data.length > 0) {            
+            return data; 
+        } else {
+            toast.error('Credenciais inválidas.');
+        }
+    })
+    .catch(error => {
+        toast.error('Erro ao fazer login.');
+        console.error('Error:', error);
+    });
+}
+
+
+function createShareUser(cardId, userId, permission){
+    return http.post('/share', {
+        cardId,
+        userId,
+        permission
+    }).then(response => {
+        const data = response.data;
+        if (data.success) {
+            console.log('Register successful:', data.user);
+        } else {
+            toast.error('Credenciais inválidas.');
+        }
+    })
+    .catch(error => {
+        toast.error('Erro ao fazer login.');
+        console.error('Error:', error);
+    });
+}
+
+
 export {
     createUser,
-    userLogin
+    userLogin,
+    getAllusers,
+    createShareUser,
+    getAllShareUsers,
+    getAllShareCards
 };

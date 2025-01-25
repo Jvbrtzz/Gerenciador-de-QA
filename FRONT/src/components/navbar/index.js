@@ -26,7 +26,7 @@ return (
         <li><a href="/">Home</a></li>
         <li><a href="/about">Sobre</a></li>
         <li><a href="/services">Serviços</a></li>
-        <li><a href="/contact">Contato</a></li>
+        <li><a href="/users">Usuários</a></li>
       </ul>
       <div className="navbar-menu">
         {isAuthenticated ? (

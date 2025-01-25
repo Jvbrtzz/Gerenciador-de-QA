@@ -3,7 +3,7 @@ import './card.css';
 import { getUserCard, createCard, deleteCard, updateCardStatus } from '../../api/card';
 import decodeToken from '../../utils/decodeAccessToken';
 import Modal from '../modal/modal';
-
+import { getAllShareCards } from '../../api/user';
 
 const token = decodeToken()?.user_id;
 const tokenName = decodeToken()?.username;
@@ -11,6 +11,16 @@ const tokenName = decodeToken()?.username;
 async function fetchUserCards(id) {
   try {
     const cards = await getUserCard(id);
+    return cards; 
+  } catch (error) {
+    console.error('Erro ao buscar cards:', error);
+    return [];
+  }
+}
+
+async function fetchShareUserCards(id) {
+  try {
+    const cards = await getAllShareCards(id);
     return cards; 
   } catch (error) {
     console.error('Erro ao buscar cards:', error);
@@ -127,22 +137,34 @@ const Card = () => {
   const [newCardDescription, setNewCardDescription] = useState("");
   const [selectedColumn, setSelectedColumn] = useState(1);
   const [selectedCardId, setSelectedCardId] = useState(null);
-
   useEffect(() => {
     async function loadCards() {
       const userCards = await fetchUserCards(token);
+      const userShareCards = await fetchShareUserCards(token);
+      console.log(userShareCards);
   
-      // Organize os cards nas colunas corretas com base no status
+      // Caso `userShareCards` seja undefined ou null, inicializa como um array vazio
+      const safeUserShareCards = userShareCards || [];
+  
+      // Atualiza as colunas com os cards do usuário
       const updatedColumns = columns.map((column) => {
-        const columnCards = userCards.filter((card) => card.status === column.title);
-        return { ...column, cards: columnCards }; // Inclui o card_id diretamente
+        // Filtra os cards do usuário e os compartilhados para a coluna
+        const columnUserCards = userCards.filter((card) => card.status === column.title);
+        const columnShareCards = safeUserShareCards.filter((card) => card.status === column.title);
+  
+        // Combina os cards do usuário com os compartilhados
+        const allCards = [...columnUserCards, ...columnShareCards];
+  
+        return { ...column, cards: allCards };
       });
-
+  
       setColumns(updatedColumns);
     }
-    cardDragging()
+  
+    cardDragging();
     loadCards();
   }, [column]);
+  
 
   const addCard = () => {
     if (newCardText.trim() !== "" && newCardDescription.trim() !== "") {

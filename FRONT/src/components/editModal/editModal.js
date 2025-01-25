@@ -29,8 +29,8 @@ export default function EditModal({ isOpen, commentId, existingComment, setModal
           onChange={(e) => setComentary(e.target.value)}
         ></textarea>
         <div className="modal-actions">
-          <button onClick={handleSave}>Salvar</button>
-          <button onClick={() => setModalOpen(false)}>Fechar</button>
+          <button className='edit-button' onClick={handleSave}>Salvar</button>
+          <button className='edit-button'onClick={() => setModalOpen(false)}>Fechar</button>
         </div>
       </div>
     </div>

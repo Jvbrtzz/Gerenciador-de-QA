@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 
 function getUsers(req, res) {
-    connection.query('SELECT nome, email FROM `user`', (err, results) => {
+    connection.query('SELECT id, nome, email FROM `user`', (err, results) => {
         if (err) {
             console.error('Error executing query:', err);
             res.status(500).send('Error executing query');
