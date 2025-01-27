@@ -1,14 +1,14 @@
 const express = require('express');
-const userController = require('../controller/controller');
+const UserController = require('../controller/controller');
 const cardController = require('../controller/controllerCard');
 const UserCardController = require('../controller/ControllerUserCard');
 
 const router = express.Router();
 
-router.get('/users', userController.getUsers)
-router.get('/user/:id', userController.getUserById)
-router.post('/registerUser', userController.createUser)
-router.post('/userLogin', userController.userLogin)
+router.get('/users', UserController.getUsers)
+router.get('/user/:id', UserController.getUserById)
+router.post('/registerUser', UserController.createUser)
+router.post('/userLogin', UserController.userLogin)
 
 router.get('/getUserCard/:id', cardController.getUserCard)
 router.post('/createCards', cardController.createCard)
@@ -23,5 +23,7 @@ router.put('/updateComment/:commentId', cardController.updateComment)
 router.get('/sharedUsers/:cardId', UserCardController.getShareUserCard)
 router.get('/sharedCards/:userId', UserCardController.getSharedCardsForUser)
 router.post('/share', UserCardController.createShareCardStatus)
+router.delete('/deleteShare/:userId/:cardId', UserCardController.deleteShareUser)
+
 
 module.exports = router;

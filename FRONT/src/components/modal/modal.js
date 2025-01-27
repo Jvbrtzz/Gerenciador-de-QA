@@ -4,7 +4,7 @@ import '../comment/comment.css'
 import { postCommentsByCard, updateCard } from '../../api/card';
 import CommentSection from '../comment/commentBuilder';
 import toast from 'react-hot-toast';
-import { getAllusers, createShareUser, getAllShareUsers } from '../../api/user';
+import { getAllusers, createShareUser, getAllShareUsers, deleteShareUser } from '../../api/user';
 
 export default function   Modal({ isOpen, setModalOpen, columns = [], cardId, userId, userName }) {
     const [title, setTitle] = useState('');
@@ -33,6 +33,7 @@ export default function   Modal({ isOpen, setModalOpen, columns = [], cardId, us
         try {
           const fetchedUsers = await getAllShareUsers(cardId);
           setShareUsers(fetchedUsers);
+          
         } catch (error) {
           console.error('Erro ao buscar usuários:', error);
         }
@@ -93,6 +94,9 @@ export default function   Modal({ isOpen, setModalOpen, columns = [], cardId, us
       createShareUser(cardId, userId, 'view')
       setSelectedUser(user);
       setShowDropdown(false); // Fecha o dropdown após a seleção
+    };
+    const handleDeleteUserSelection = (userId, cardId) => {
+      deleteShareUser(userId, cardId)
     };
 
     return isOpen ? (
@@ -162,25 +166,32 @@ export default function   Modal({ isOpen, setModalOpen, columns = [], cardId, us
 
             {selectedUser && (
               <p>
-                Usuário selecionado: <strong>{selectedUser.nome}</strong> ({selectedUser.email})
+                Usuário selecionado: <strong>{selectedUser.nome}</strong> ({selectedUser.email})                
               </p>
             )}
               
               {shareUsers && shareUsers.length > 0 ? (
-              <ul>
-                <p>Usuários associados:</p>
-                {shareUsers.map((user) => (
-                  <li key={user.user_id}>
-                    <p>
-                      <strong>{user.user_name}</strong> ({user.user_email})
-                    </p>
-                  </li>
-                ))}
-              </ul>
+                <ul>
+                    <p>Usuários associados:</p>
+                    {shareUsers.map((user) => (
+                      <li key={user.user_id} className="user-list-item">
+                        <p className="user-info-container">
+                          <span className="user-info">
+                            <strong>{user.user_name}</strong> ({user.user_email})
+                          </span>
+                          <button
+                            className="delete-button"
+                            onClick={() => handleDeleteUserSelection(user.user_id, cardId)}
+                          >
+                            Excluir
+                          </button>
+                        </p>
+                      </li>
+                    ))}
+                  </ul>           
             ) : (
               <p>Nenhum usuário associado.</p>
             )}
-
 
           <p>Comentários</p>
           <div className={`comment-section`}>                  

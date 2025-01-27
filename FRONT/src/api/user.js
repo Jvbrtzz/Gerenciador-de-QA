@@ -108,6 +108,22 @@ function createShareUser(cardId, userId, permission){
     });
 }
 
+function deleteShareUser(userId, cardId) {    
+    return http.delete(`/deleteShare/${userId}/${cardId}`)
+        .then(response => {
+            const data = response.data;
+            if (data.success) {        
+                console.log('Delete successful');               
+            } else {
+                toast.error('Delete inválida.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            toast.error('Erro ao tentar deletar o compartilhamento.');
+        });
+}
+
 
 export {
     createUser,
@@ -115,5 +131,6 @@ export {
     getAllusers,
     createShareUser,
     getAllShareUsers,
-    getAllShareCards
+    getAllShareCards,
+    deleteShareUser
 };

@@ -54,7 +54,7 @@
     margin-top: 20px;
   }
   
-  .save-button, .share-button{
+  .delete-button, .save-button, .share-button{
     padding: 10px 20px;
     background-color: #4CAF50;
     border: none;
@@ -62,7 +62,10 @@
     cursor: pointer;
     border-radius: 5px;
   }
-  
+  .delete-button{
+    background-color: #f44336;
+
+  }
   .modal-actions .save-button:hover {
     background-color: #45a049;
   }
@@ -104,5 +107,33 @@
   
   .dropdown-item:hover {
     background: #f0f0f0;
+  }
+  .user-list-item {
+    list-style: none;
+    margin-bottom: 10px;
+  }
+  
+  .user-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .user-info {
+    text-align: left; /* Alinha o texto à esquerda */
+  }
+  
+  .delete-button {
+    background-color: #ff4d4f; /* Cor para destacar o botão */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px; /* Espaço entre o botão e o texto */
+  }
+  
+  .delete-button:hover {
+    background-color: #d9363e;
   }
   

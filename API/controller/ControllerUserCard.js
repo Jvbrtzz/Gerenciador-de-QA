@@ -24,7 +24,6 @@ function getShareUserCard(req, res) {
 
 function getSharedCardsForUser(req, res) {
     const { userId } = req.params;
-    console.log(userId);
 
     connection.query(`
         SELECT 
@@ -44,14 +43,12 @@ function getSharedCardsForUser(req, res) {
             res.status(500).send('Error executing query');
             return;
         }
-        console.log(results)
         res.send(results); 
     });
 }
 
 function createShareCardStatus(req, res) {
     const { cardId, userId, permission } = req.body;
-    console.log(cardId, userId, permission);
 
     if (!cardId) {
         return res.status(400).send('Card ID is required.');
@@ -75,8 +72,35 @@ function createShareCardStatus(req, res) {
         );  
 }
 
+function deleteShareUser(req, res) {
+    const { userId, cardId } = req.params;
+
+    if (!userId || !cardId) {
+        return res.status(400).json({ success: false, message: 'Parâmetros inválidos' });
+    }
+
+    connection.query(
+        'DELETE FROM card_users WHERE user_id = ? AND card_id = ?',
+        [userId, cardId],
+        (err, results) => {
+            if (err) {
+                console.error('Erro ao executar a query:', err);
+                return res.status(500).json({ success: false, message: 'Erro no servidor' });
+            }
+
+            if (results.affectedRows > 0) {
+                return res.json({ success: true, message: 'Usuário removido com sucesso' });
+            } else {
+                return res.status(404).json({ success: false, message: 'Usuário não encontrado' });
+            }
+        }
+    );
+}
+
+
 module.exports = {
     getShareUserCard,
     createShareCardStatus,
-    getSharedCardsForUser
+    getSharedCardsForUser,
+    deleteShareUser
 };
