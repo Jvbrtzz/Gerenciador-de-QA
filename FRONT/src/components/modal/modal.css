@@ -122,6 +122,9 @@
   .user-info {
     text-align: left; /* Alinha o texto à esquerda */
   }
+  .user-info-container-hidden {
+    display: none; /* Alinha o texto à esquerda */
+  }
   
   .delete-button {
     background-color: #ff4d4f; /* Cor para destacar o botão */

@@ -20,7 +20,9 @@ export default function   Modal({ isOpen, setModalOpen, columns = [], cardId, us
       async function fetchUsers() {
         try {
           const fetchedUsers = await getAllusers();
-          setUsers(fetchedUsers);
+          const filteredUsers = fetchedUsers.filter((user) => user.id !== userId);
+          setUsers(filteredUsers);
+
         } catch (error) {
           console.error('Erro ao buscar usuários:', error);
         }
@@ -31,7 +33,7 @@ export default function   Modal({ isOpen, setModalOpen, columns = [], cardId, us
     useEffect(() => {
       async function fetchShareUsers(cardId) {
         try {
-          const fetchedUsers = await getAllShareUsers(cardId);
+          const fetchedUsers = await getAllShareUsers(cardId);        
           setShareUsers(fetchedUsers);
           
         } catch (error) {
@@ -46,7 +48,7 @@ export default function   Modal({ isOpen, setModalOpen, columns = [], cardId, us
           fetchShareUsers(cardId);
           setTitle(card.title);
           setDescription(card.description);
-          setStatus(card.status);
+          setStatus(card.status);          
         }
       }
     }, [cardId]);
@@ -89,15 +91,48 @@ export default function   Modal({ isOpen, setModalOpen, columns = [], cardId, us
       commentDiv.innerHTML = commentHTML;
       commentSection.appendChild(commentDiv);
     };
+
+    const handleUserSelection = async (user, userId, cardId) => {
+      try {
+        // Associa o usuário ao card
+        await createShareUser(cardId, userId, 'view');
+        
+        // Atualiza a lista de usuários associados
+        setShareUsers((prevShareUsers) => [
+          ...prevShareUsers,
+          { user_id: userId, user_name: user.nome, user_email: user.email }
+        ]);     
+        
+        setSelectedUser(user);
+        setShowDropdown(false); // Fecha o dropdown após a seleção
+        setTimeout(() => {
+          setSelectedUser(null);
+        }, "4000");
+
+        toast.success('Usuário associado com sucesso!');
+      } catch (error) {
+        console.error('Erro ao associar usuário:', error);
+        toast.error('Erro ao associar usuário.');
+      }
+    };    
+
+    const handleDeleteUserSelection = async (userId, cardId) => {
+      try {
+        // Chama a função para deletar o usuário
+        await deleteShareUser(userId, cardId);
     
-    const handleUserSelection = (user, userId, cardId) => {
-      createShareUser(cardId, userId, 'view')
-      setSelectedUser(user);
-      setShowDropdown(false); // Fecha o dropdown após a seleção
+        // Remove o usuário da lista atualizada
+        setShareUsers((prevShareUsers) =>
+          prevShareUsers.filter((user) => user.user_id !== userId)
+        );
+    
+        toast.success('Usuário removido com sucesso!');
+      } catch (error) {
+        console.error('Erro ao deletar usuário:', error);
+        toast.error('Erro ao remover usuário.');
+      }
     };
-    const handleDeleteUserSelection = (userId, cardId) => {
-      deleteShareUser(userId, cardId)
-    };
+    
 
     return isOpen ? (
       <div className="modal-background">
