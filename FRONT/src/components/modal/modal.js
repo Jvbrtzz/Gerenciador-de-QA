@@ -94,27 +94,29 @@ export default function   Modal({ isOpen, setModalOpen, columns = [], cardId, us
 
     const handleUserSelection = async (user, userId, cardId) => {
       try {
-        // Associa o usuário ao card
         await createShareUser(cardId, userId, 'view');
-        
-        // Atualiza a lista de usuários associados
-        setShareUsers((prevShareUsers) => [
-          ...prevShareUsers,
-          { user_id: userId, user_name: user.nome, user_email: user.email }
-        ]);     
+        setShareUsers((prevShareUsers) => {
+          try {
+            return [
+              ...prevShareUsers,
+              { user_id: userId, user_name: user.nome, user_email: user.email }
+            ];
+          } catch (error) {
+            toast.error('Ocorreu um erro, tente novamente mais tarde.', { position: "top-center", autoClose: 3000 });
+            console.error('Erro ao adicionar usuário:', error);
+            return prevShareUsers; 
+          }
+        });
         
         setSelectedUser(user);
-        setShowDropdown(false); // Fecha o dropdown após a seleção
-        setTimeout(() => {
-          setSelectedUser(null);
-        }, "4000");
-
+        setShowDropdown(false);
+        setTimeout(() => setSelectedUser(null), 4000);
         toast.success('Usuário associado com sucesso!');
       } catch (error) {
         console.error('Erro ao associar usuário:', error);
         toast.error('Erro ao associar usuário.');
       }
-    };    
+    };
 
     const handleDeleteUserSelection = async (userId, cardId) => {
       try {

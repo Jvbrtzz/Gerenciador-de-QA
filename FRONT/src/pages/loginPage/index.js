@@ -6,6 +6,7 @@ import CottageIcon from '@mui/icons-material/Cottage';
 import { Toaster } from 'react-hot-toast';
 import { userLogin } from '../../api/user';
 import Button from '@mui/material/Button';
+import { navigateToRegister } from '../../utils/redirectHome';
 
 function LoginPage() {
 
@@ -30,6 +31,7 @@ function LoginPage() {
               id='username'
               label='Usuário'
               value={username}
+              required={true}
               onChange={(e) => setUsername(e.target.value)}
               fullWidth
             />
@@ -38,12 +40,15 @@ function LoginPage() {
               label='Senha'
               type='password'
               variant='outlined'
+              required={true}
               value={password}
               fullWidth
               onChange={(e) => setPassword(e.target.value)}
             />
             <div className='spacer' />
             <Button onClick={handleFormSubmit} variant="contained">Enviar</Button>
+            <strong>não tem conta?</strong>
+            <Button onClick={navigateToRegister} variant="contained" color='warning'>Cadastrar</Button>
 
             <div className='warning-text'><strong>AVISO IMPORTANTE:</strong> Por favor espere um pouco antes de reiniciar a página, pois nosso servidor pode estar inativo e demorando alguns instantes para retornar a atividade.</div>
           </div>

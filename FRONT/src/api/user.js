@@ -1,6 +1,6 @@
 import http from "./api";
 import toast from "react-hot-toast";
-import { navigateToHome } from "../utils/redirectHome";
+import { navigateToHome, navigateToLogin } from "../utils/redirectHome";
 
 function getAllusers(){
     return http.get('/users').then(response => {
@@ -26,9 +26,9 @@ function createUser(nome, email, senha){
         const data = response.data;
         if (data.success) {
             console.log('Register successful:', data.user);
-            navigateToHome()
+            navigateToLogin()
         } else {
-            toast.error('Credenciais inválidas.');
+            toast.error('Credenciais inválidas.');        
         }
     })
     .catch(error => {
@@ -41,8 +41,7 @@ const userLogin = (nome, senha) => {
     http.post('/userLogin', {
         nome,
         senha,
-    })
-        .then(response => {
+    }).then(response => {
             const data = response.data;
             if (data.success) {
                 console.log('Login successful:', data.user);

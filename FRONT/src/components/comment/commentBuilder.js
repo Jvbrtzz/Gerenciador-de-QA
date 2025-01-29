@@ -61,6 +61,7 @@ function CommentSection({ cardId }) {
           : comment
       )
     );
+    setComments('')
     closeModal();
   };
 
