@@ -1,6 +1,6 @@
 const connection = require('../db/dbConnection');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' });
 
 async function saveMessage(userId, sender, message) {
     const query = 'INSERT INTO chat_messages (user_id, sender, message) VALUES (?, ?, ?)';
@@ -47,6 +47,9 @@ async function callIa(req, res) {
         await saveMessage(userId, 'user', text);
 
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+        console.log(process.env.GEMINI_API_KEY);
+        console.log(process.env.MODEL);
+        
         const model = genAI.getGenerativeModel({
             model: process.env.MODEL,
             systemInstruction: "Você é um especialista em flashcards e organização, seja breve, atencioso e objetivo, respeitando a norma UTF-8 na resposta, sem emojis.",
