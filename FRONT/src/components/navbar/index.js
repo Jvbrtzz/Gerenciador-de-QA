@@ -25,7 +25,7 @@ return (
       <ul className="navbar-links">
         <li><a href="/">Home</a></li>
         <li><a href="/about">Sobre</a></li>
-        <li><a href="/services">Serviços</a></li>
+        <li><a href="/services">Converse com a nossa IA</a></li>
         <li><a href="/users">Usuários</a></li>
       </ul>
       <div className="navbar-menu">

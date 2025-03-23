@@ -2,6 +2,7 @@ const express = require('express');
 const UserController = require('../controller/controller');
 const cardController = require('../controller/controllerCard');
 const UserCardController = require('../controller/ControllerUserCard');
+const IaController = require('../Ia/iaController')
 
 const router = express.Router();
 
@@ -25,5 +26,7 @@ router.get('/sharedCards/:userId', UserCardController.getSharedCardsForUser)
 router.post('/share', UserCardController.createShareCardStatus)
 router.delete('/deleteShare/:userId/:cardId', UserCardController.deleteShareUser)
 
+router.post('/iaservice', IaController.callIa)
+router.get('/getiaresponse/:user_id', IaController.getMessages)
 
 module.exports = router;
